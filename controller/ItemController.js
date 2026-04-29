@@ -57,28 +57,8 @@ function openItemModal(editId) {
     } else {
         $('#itemModalTitle').text('➕ ADD ITEM');
         $('#itemForm')[0].reset(); $('#imgPreview').hide();
-        $('#mergeWarningBox').hide();
     }
     $('#itemModal').addClass('show');
-}
-
-
-function checkDuplicateItemName() {
-    var name = $('#iName').val().trim();
-    if (!name || _editingItemId) { $('#mergeWarningBox').hide(); return; }
-    var duplicate = getItemByName(name);
-    if (duplicate) {
-        var newQty = parseInt($('#iQty').val()) || 0;
-        $('#mergeWarningText').html(
-            'Current stock: <strong>' + duplicate.qty + ' ' + duplicate.unit + '</strong> &nbsp;|&nbsp; ' +
-            'You are adding: <strong>+' + (newQty || '?') + '</strong> &nbsp;→&nbsp; ' +
-            'New total will be: <strong>' + (duplicate.qty + newQty) + ' ' + duplicate.unit + '</strong><br>' +
-            '<span style="opacity:0.8">Saving will merge the quantity — no duplicate will be created.</span>'
-        );
-        $('#mergeWarningBox').show();
-    } else {
-        $('#mergeWarningBox').hide();
-    }
 }
 
 function saveItem() {
@@ -102,15 +82,8 @@ function saveItem() {
         updateItemData(_editingItemId, code, name, cat, price, qty, unit, image);
         showToast('Item updated', 'success');
     } else {
-        /* ── MERGE CHECK: if an item with the same name already exists, merge qty ── */
-        var duplicate = getItemByName(name);
-        if (duplicate) {
-            mergeItemQty(duplicate.id, qty);
-            showToast('⚡ "' + name + '" already exists — Qty merged! (+'  + qty + ')', 'warning');
-        } else {
-            addItemData(code, name, cat, price, qty, unit, image);
-            showToast('Item added', 'success');
-        }
+        addItemData(code, name, cat, price, qty, unit, image);
+        showToast('Item added', 'success');
     }
     $('#itemModal').removeClass('show');
     renderItems();
@@ -133,5 +106,4 @@ $(document).ready(function() {
     $('#itemSearch').on('input', function(){ renderItems($(this).val(), _itemCatFilter); });
     $('#itemCatFilter').on('change', function(){ renderItems(_itemSearchQuery, $(this).val()); });
     $('#iImage').on('input', previewItemImage);
-    $('#iQty').on('input', checkDuplicateItemName);
 });

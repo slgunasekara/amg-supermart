@@ -8,8 +8,6 @@ function nextItemId() {
 function getItemData()         { return items_db; }
 function getItemById(id)       { return items_db.find(function(i) { return i.id === id; }); }
 function getItemByCode(code)   { return items_db.find(function(i) { return i.code === code; }); }
-function getItemByName(name)   { return items_db.find(function(i) { return i.name.toLowerCase() === name.toLowerCase(); }); }
-function mergeItemQty(id, qty) { var item = getItemById(id); if (item) item.qty += qty; }
 function getLowStockItems()    { return items_db.filter(function(i) { return i.qty < 30; }); }
 function getCategories()       { return [...new Set(items_db.map(function(i) { return i.category; }))]; }
 
