@@ -22,3 +22,8 @@ function toggleUserStatus(id) {
     var u = getUserById(id);
     if (u) u.active = !u.active;
 }
+
+function deleteUserData(id) {
+    var idx = users_db.findIndex(function(u){ return u.id === id; });
+    if (idx !== -1) users_db.splice(idx, 1);
+}

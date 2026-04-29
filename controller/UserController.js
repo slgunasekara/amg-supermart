@@ -23,8 +23,12 @@ function renderUsers(search) {
             '<td><code style="font-size:12px;color:var(--accent)">' + u.username + '</code></td>' +
             '<td><span class="badge-modern badge-info">' + u.role + '</span></td>' +
             '<td><span class="badge-modern ' + (u.active ? 'badge-success' : 'badge-danger') + '">' + (u.active ? '● Active' : '● Inactive') + '</span></td>' +
-            '<td><button class="btn-warning-sm me-1" onclick="editUser(\'' + u.id + '\')"><i class="bi bi-pencil"></i></button>' +
-            (!isSelf ? '<button class="btn-danger-sm" onclick="toggleUserStatus_ctrl(\'' + u.id + '\')">' + (u.active ? '🔒' : '🔓') + '</button>' : '<span style="font-size:11px;color:var(--text-secondary)">(you)</span>') +
+            '<td style="white-space:nowrap">' +
+            '<button class="btn-warning-sm me-1" onclick="editUser(\'' + u.id + '\')"><i class="bi bi-pencil"></i></button>' +
+            (!isSelf
+                ? '<button class="btn-danger-sm me-1" onclick="toggleUserStatus_ctrl(\'' + u.id + '\')" title="' + (u.active ? 'Disable' : 'Enable') + '">' + (u.active ? '🔒' : '🔓') + '</button>' +
+                  '<button class="btn-danger-sm" onclick="deleteUser(\'' + u.id + '\')" title="Delete User"><i class="bi bi-trash"></i></button>'
+                : '<span style="font-size:11px;color:var(--text-secondary)">(you)</span>') +
             '</td></tr>';
     });
     $('#userTableBody').html(html);
@@ -35,8 +39,10 @@ function openUserModal(editId) {
     if (editId) {
         var u = getUserById(editId);
         $('#userModalTitle').text('✏️ EDIT USER');
-        $('#uName').val(u.name); $('#uUsername').val(u.username);
-        $('#uEmail').val(u.email); $('#uRole').val(u.role);
+        $('#uName').val(u.name);
+        $('#uUsername').val(u.username);
+        $('#uEmail').val(u.email);
+        $('#uRole').val(u.role);
         $('#uPassword').val('').attr('placeholder', 'Leave blank to keep current');
     } else {
         $('#userModalTitle').text('➕ ADD USER');
@@ -61,25 +67,46 @@ function saveUser() {
     if (!_editingUserId && getUserData().find(function(u){ return u.username === username; })) {
         showToast('Username already exists', 'error'); return;
     }
+
     if (_editingUserId) {
         updateUserData(_editingUserId, name, username, email, role, password);
-        showToast('User updated', 'success');
+        showToast('User updated successfully', 'success');
     } else {
         addUserData(username, password, name, role, email);
-        showToast('User added', 'success');
+        showToast('User added successfully', 'success');
     }
     $('#userModal').removeClass('show');
     renderUsers();
 }
 
 function editUser(id) { openUserModal(id); }
+
 function toggleUserStatus_ctrl(id) {
     var u = getUserById(id);
-    if (confirm('Are you sure you want to ' + (u.active ? 'disable' : 'enable') + ' this user?')) {
-        toggleUserStatus(id);
-        renderUsers();
-        showToast('User status updated', 'info');
-    }
+    if (!u) return;
+    showConfirm(
+        (u.active ? 'Disable User?' : 'Enable User?'),
+        (u.active ? 'This user will not be able to log in.' : 'This user will be able to log in again.')
+    ).then(function(result) {
+        if (result.isConfirmed) {
+            toggleUserStatus(id);
+            renderUsers();
+            showToast('User status updated', 'info');
+        }
+    });
+}
+
+function deleteUser(id) {
+    var u = getUserById(id);
+    if (!u) return;
+    showConfirm('Delete User?', 'This will permanently remove "' + u.name + '" and cannot be undone.')
+        .then(function(result) {
+            if (result.isConfirmed) {
+                deleteUserData(id);
+                renderUsers();
+                showToast('User deleted', 'info');
+            }
+        });
 }
 
 $(document).ready(function() {
