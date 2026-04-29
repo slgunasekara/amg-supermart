@@ -20,32 +20,79 @@
 <!--  LOGIN PAGE                                               -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <div id="loginPage" style="display:none">
-  <div class="login-bg-grid"></div>
-  <div class="login-card">
-    <div class="login-logo">
-      <div class="brand-icon">🛒</div>
-      <h1>AMG SUPERMART</h1>
-    </div>
-    <div class="mb-3">
-      <label class="form-label-modern">Username</label>
-      <div class="search-bar">
-        <i class="bi bi-person"></i>
-        <input type="text" id="loginUsername" class="form-control-modern" placeholder="Enter username" autocomplete="off">
-      </div>
-    </div>
-    <div class="mb-4">
-      <label class="form-label-modern">Password</label>
-      <div class="search-bar">
-        <i class="bi bi-lock"></i>
-        <input type="password" id="loginPassword" class="form-control-modern" placeholder="Enter password" autocomplete="off">
-      </div>
-    </div>
-    <button id="loginBtn" class="btn-accent w-100" style="justify-content:center;padding:13px;font-size:15px;border-radius:12px">
-      <i class="bi bi-box-arrow-in-right"></i> SIGN IN
-    </button>
+  <!-- Animated background -->
+  <div class="login-bg-gradient"></div>
+  <div class="login-orbs">
+    <div class="login-orb orb-1"></div>
+    <div class="login-orb orb-2"></div>
+    <div class="login-orb orb-3"></div>
+  </div>
 
+  <!-- Left branding panel -->
+  <div class="login-panel-left">
+    <div class="login-panel-content">
+      <div class="login-panel-icon">🛒</div>
+      <h2 class="login-panel-title">AMG SUPERMART</h2>
+      <p class="login-panel-sub">Point of Sale System</p>
+      <div class="login-features">
+        <div class="login-feature-item"><i class="bi bi-lightning-charge-fill"></i> Fast Checkout</div>
+        <div class="login-feature-item"><i class="bi bi-shield-check"></i> Secure & Reliable</div>
+        <div class="login-feature-item"><i class="bi bi-bar-chart-line-fill"></i> Smart Analytics</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right form panel -->
+  <div class="login-panel-right">
+    <div class="login-card">
+      <div class="login-card-header">
+        <div class="login-welcome-badge">Welcome Back</div>
+        <h3 class="login-card-title">Sign In</h3>
+        <p class="login-card-sub">Enter your credentials to continue</p>
+      </div>
+
+      <div class="login-form-group">
+        <label class="login-label">Username</label>
+        <div class="login-input-wrap">
+          <span class="login-input-icon"><i class="bi bi-person-fill"></i></span>
+          <input type="text" id="loginUsername" class="login-input" placeholder="Enter your username" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="login-form-group">
+        <label class="login-label">Password</label>
+        <div class="login-input-wrap">
+          <span class="login-input-icon"><i class="bi bi-lock-fill"></i></span>
+          <input type="password" id="loginPassword" class="login-input" placeholder="Enter your password" autocomplete="off">
+          <span class="login-eye-toggle" onclick="toggleLoginPwd(this)"><i class="bi bi-eye-slash"></i></span>
+        </div>
+      </div>
+
+      <button id="loginBtn" class="login-btn">
+        <span class="login-btn-text"><i class="bi bi-box-arrow-in-right"></i>&nbsp; SIGN IN</span>
+        <span class="login-btn-loader" style="display:none"><i class="bi bi-arrow-repeat login-spin"></i></span>
+      </button>
+
+      <div class="login-footer-note">
+        <i class="bi bi-info-circle"></i> Contact your administrator if you forgot your credentials.
+      </div>
+    </div>
   </div>
 </div>
+
+<script>
+function toggleLoginPwd(el) {
+  var inp = document.getElementById('loginPassword');
+  var icon = el.querySelector('i');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    icon.className = 'bi bi-eye';
+  } else {
+    inp.type = 'password';
+    icon.className = 'bi bi-eye-slash';
+  }
+}
+</script>
 
 <!-- ══════════════════════════════════════════════════════════ -->
 <!--  MAIN APP                                                 -->
@@ -245,8 +292,19 @@
               </div>
               <div class="card-body-modern">
                 <div class="mb-3">
-                  <label class="form-label-modern">Customer *</label>
-                  <select id="orderCustomer" class="form-control-modern"></select>
+                  <label class="form-label-modern">Customer <span style="color:var(--text-secondary);font-size:11px;font-weight:400">(Optional)</span></label>
+                  <div style="display:flex;gap:8px;align-items:center">
+                    <select id="orderCustomer" class="form-control-modern" style="flex:1"></select>
+                    <button class="btn-outline-accent" id="walkInToggle" title="Walk-in customer" style="white-space:nowrap;padding:8px 12px;font-size:12px">
+                      <i class="bi bi-person-walking"></i> Walk-in
+                    </button>
+                  </div>
+                  <div id="walkInBadge" style="display:none;margin-top:6px">
+                    <span style="background:var(--accent-light);color:var(--accent);padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600">
+                      <i class="bi bi-person-walking"></i> Walk-in Customer
+                      <span onclick="clearWalkIn()" style="cursor:pointer;margin-left:6px;opacity:0.7">&#x2715;</span>
+                    </span>
+                  </div>
                 </div>
                 <div id="cartItems" style="min-height:180px;max-height:300px;overflow-y:auto;padding-right:4px"></div>
                 <div class="row g-2 mt-2">

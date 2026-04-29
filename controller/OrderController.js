@@ -3,9 +3,13 @@
 // ============================================================
 var _orderSearch = '';
 var _orderCat    = '';
+var _walkInMode  = false;
 
 function renderOrderPage() {
-    var opts = '<option value="">— Select Customer —</option>';
+    _walkInMode = false;
+    $('#walkInBadge').hide();
+    $('#orderCustomer').prop('disabled', false).css('opacity','1');
+    var opts = '<option value="">— Select Customer (Optional) —</option>';
     getCustomerData().forEach(function(c) {
         opts += '<option value="' + c.id + '">' + c.name + ' (' + c.id + ')</option>';
     });
@@ -109,22 +113,27 @@ function removeCartHandler(itemId) {
 }
 
 function placeOrder() {
-    var custId = $('#orderCustomer').val();
-    if (!custId)                  { showToast('Please select a customer', 'error'); return; }
+    var custId = _walkInMode ? null : $('#orderCustomer').val();
     if (getCartData().length===0) { showToast('Cart is empty', 'error'); return; }
 
-    var cust     = getCustomerById(custId);
+    var custName = 'Walk-in Customer';
+    var cust     = null;
+    if (custId) {
+        cust     = getCustomerById(custId);
+        custName = cust ? cust.name : 'Walk-in Customer';
+    }
+
     var subtotal = getCartSubtotal();
     var disc     = parseFloat($('#orderDiscount').val()) || 0;
     var tax      = subtotal * 0.1;
     var total    = subtotal + tax - disc;
 
     getCartData().forEach(function(ci){ deductItemStock(ci.itemId, ci.qty); });
-    addLoyaltyPoints(custId, total);
+    if (custId) addLoyaltyPoints(custId, total);
 
-    var order = addOrderData(custId, cust.name, getCartData().slice(), subtotal, tax, disc, total);
+    var order = addOrderData(custId || 'WALK-IN', custName, getCartData().slice(), subtotal, tax, disc, total);
     clearCart();
-    showOrderConfirmation(order, cust);
+    showOrderConfirmation(order, cust || {name: custName});
     showToast('Order ' + order.id + ' placed successfully!', 'success');
     renderOrderPage();
 }
@@ -149,4 +158,16 @@ $(document).ready(function() {
     $('#orderSearch').on('input', function(){ renderOrderItemGrid($(this).val(), _orderCat); });
     $('#orderDiscount').on('input', updateCartTotals);
     $('#clearCartBtn').on('click', function(){ clearCart(); renderCart(); renderOrderItemGrid(); });
+
+    $('#walkInToggle').on('click', function() {
+        _walkInMode = true;
+        $('#orderCustomer').val('').prop('disabled', true).css('opacity','0.4');
+        $('#walkInBadge').show();
+    });
 });
+
+function clearWalkIn() {
+    _walkInMode = false;
+    $('#orderCustomer').prop('disabled', false).css('opacity','1');
+    $('#walkInBadge').hide();
+}
