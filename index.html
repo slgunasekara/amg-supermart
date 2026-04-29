@@ -626,40 +626,58 @@ function lpEye(el) {
 
 <!-- Calculator Modal -->
 <div class="modal-overlay" id="calcModal">
-  <div class="modal-box" style="max-width:310px">
-    <div class="modal-header"><h5>🧮 CALCULATOR</h5><button class="modal-close"><i class="bi bi-x"></i></button></div>
-    <div class="modal-body">
-      <div class="calc-display">
-        <div class="calc-expr" id="calcExpr"></div>
-        <div class="calc-val" id="calcVal">0</div>
+  <div class="calc-modal-box">
+
+    <!-- Display -->
+    <div class="calc-display-wrap">
+      <div class="calc-brand">
+        <span class="calc-brand-icon">🧮</span>
+        <span class="calc-brand-text">AMG CALC</span>
       </div>
+      <button class="calc-close-btn" onclick="document.getElementById('calcModal').classList.remove('show')">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <div class="calc-expr" id="calcExpr">&nbsp;</div>
+      <div class="calc-val" id="calcVal">0</div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="calc-body">
       <div class="calc-grid">
-        <button class="calc-btn clear" onclick="calcClear()">AC</button>
-        <button class="calc-btn op"    onclick="calcSign()">+/-</button>
-        <button class="calc-btn op"    onclick="calcPercent()">%</button>
-        <button class="calc-btn op"    onclick="calcOp('÷')">÷</button>
-        <button class="calc-btn" onclick="calcInput('7')">7</button>
-        <button class="calc-btn" onclick="calcInput('8')">8</button>
-        <button class="calc-btn" onclick="calcInput('9')">9</button>
-        <button class="calc-btn op" onclick="calcOp('×')">×</button>
-        <button class="calc-btn" onclick="calcInput('4')">4</button>
-        <button class="calc-btn" onclick="calcInput('5')">5</button>
-        <button class="calc-btn" onclick="calcInput('6')">6</button>
-        <button class="calc-btn op" onclick="calcOp('-')">−</button>
-        <button class="calc-btn" onclick="calcInput('1')">1</button>
-        <button class="calc-btn" onclick="calcInput('2')">2</button>
-        <button class="calc-btn" onclick="calcInput('3')">3</button>
-        <button class="calc-btn op" onclick="calcOp('+')">+</button>
-        <button class="calc-btn zero" onclick="calcInput('0')">0</button>
-        <button class="calc-btn" onclick="calcInput('.')">.</button>
-        <button class="calc-btn eq" onclick="calcEquals()">=</button>
-      </div>
-      <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">
-        <button class="btn-outline-accent w-100" style="font-size:12px;justify-content:center" onclick="calcBack()">
-          <i class="bi bi-backspace"></i> Backspace
-        </button>
+
+        <!-- Row 1 -->
+        <button class="calc-btn calc-clear" onclick="calcClear()">AC</button>
+        <button class="calc-btn calc-util"  onclick="calcSign()">+/−</button>
+        <button class="calc-btn calc-util"  onclick="calcPercent()">%</button>
+        <button class="calc-btn calc-op"    onclick="calcOp('÷')">÷</button>
+
+        <!-- Row 2 -->
+        <button class="calc-btn calc-num" onclick="calcInput('7')">7</button>
+        <button class="calc-btn calc-num" onclick="calcInput('8')">8</button>
+        <button class="calc-btn calc-num" onclick="calcInput('9')">9</button>
+        <button class="calc-btn calc-op"  onclick="calcOp('×')">×</button>
+
+        <!-- Row 3 -->
+        <button class="calc-btn calc-num" onclick="calcInput('4')">4</button>
+        <button class="calc-btn calc-num" onclick="calcInput('5')">5</button>
+        <button class="calc-btn calc-num" onclick="calcInput('6')">6</button>
+        <button class="calc-btn calc-op"  onclick="calcOp('-')">−</button>
+
+        <!-- Row 4 -->
+        <button class="calc-btn calc-num" onclick="calcInput('1')">1</button>
+        <button class="calc-btn calc-num" onclick="calcInput('2')">2</button>
+        <button class="calc-btn calc-num" onclick="calcInput('3')">3</button>
+        <button class="calc-btn calc-op"  onclick="calcOp('+')">+</button>
+
+        <!-- Row 5 -->
+        <button class="calc-btn calc-num calc-zero" onclick="calcInput('0')">0</button>
+        <button class="calc-btn calc-num" onclick="calcInput('.')">.</button>
+        <button class="calc-btn calc-back" onclick="calcBack()"><i class="bi bi-backspace"></i></button>
+        <button class="calc-btn calc-eq"  onclick="calcEquals()">=</button>
+
       </div>
     </div>
+
   </div>
 </div>
 
