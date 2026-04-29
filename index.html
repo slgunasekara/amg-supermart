@@ -16,9 +16,10 @@
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  LOGIN PAGE                                               -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ============================================================================================ -->
+<!--                                     LOGIN PAGE                                               -->
+<!-- ============================================================================================ -->
+
 <div id="loginPage" style="display:none">
 
   <!-- Soft background -->
@@ -160,7 +161,8 @@ function lpEye(el) {
     icon.className = 'bi bi-eye-slash-fill';
   }
 }
-// Update greeting based on time
+
+// Update time situation
 (function() {
   var h = new Date().getHours();
   var txt = h < 12 ? 'Good morning!' : h < 17 ? 'Good afternoon!' : 'Good evening!';
@@ -169,9 +171,10 @@ function lpEye(el) {
 })();
 </script>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  MAIN APP                                                 -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ============================================================================================ -->
+<!--                                     MAIN APP                                                 -->
+<!-- ============================================================================================ -->
+
 <div id="mainApp" style="display:none">
 
   <div id="sidebarOverlay"></div>
@@ -208,9 +211,11 @@ function lpEye(el) {
   </nav>
 
   <!-- MAIN CONTENT -->
+    <!-- ============================================================================================ -->
   <div id="mainContent">
 
     <!-- Top Bar -->
+      <!-- ============================================================================================ -->
     <header class="topbar">
       <button class="icon-btn d-lg-none" id="sidebarToggleBtn"><i class="bi bi-list"></i></button>
       <div>
@@ -230,6 +235,7 @@ function lpEye(el) {
     <main class="content">
 
       <!-- ══ DASHBOARD ══════════════════════════════════════ -->
+        <!-- ============================================================================================ -->
       <section id="page-dashboard" class="page-section">
         <div class="row g-3 mb-4">
           <div class="col-xl-3 col-md-6">
@@ -296,6 +302,7 @@ function lpEye(el) {
       </section>
 
       <!-- ══ CUSTOMERS ══════════════════════════════════════ -->
+        <!-- ============================================================================================ -->
       <section id="page-customers" class="page-section">
         <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
           <div>
@@ -321,6 +328,7 @@ function lpEye(el) {
       </section>
 
       <!-- ══ ITEMS ══════════════════════════════════════════ -->
+        <!-- ============================================================================================ -->
       <section id="page-items" class="page-section">
         <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
           <div>
@@ -342,6 +350,7 @@ function lpEye(el) {
       </section>
 
       <!-- ══ NEW ORDER ══════════════════════════════════════ -->
+        <!-- ============================================================================================ -->
       <section id="page-orders" class="page-section">
         <div class="row g-3">
           <div class="col-xl-7 col-lg-6">
@@ -412,6 +421,7 @@ function lpEye(el) {
       </section>
 
       <!-- ══ ORDER HISTORY ══════════════════════════════════ -->
+        <!-- ============================================================================================ -->
       <section id="page-history" class="page-section">
         <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
           <h4 style="font-family:'Orbitron',monospace;font-size:16px;color:var(--accent);margin:0">ORDER HISTORY</h4>
@@ -431,6 +441,7 @@ function lpEye(el) {
       </section>
 
       <!-- ══ REPORTS ════════════════════════════════════════ -->
+        <!-- ============================================================================================ -->
       <section id="page-reports" class="page-section">
         <h4 style="font-family:'Orbitron',monospace;font-size:16px;color:var(--accent);margin-bottom:20px">
           <i class="bi bi-bar-chart-line"></i> REPORTS &amp; ANALYTICS
@@ -469,6 +480,7 @@ function lpEye(el) {
       </section>
 
       <!-- ══ USERS ══════════════════════════════════════════ -->
+        <!-- ============================================================================================ -->
       <section id="page-users" class="page-section">
         <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
           <div>
@@ -528,7 +540,16 @@ function lpEye(el) {
       <form id="itemForm" onsubmit="return false">
         <div class="row g-3">
           <div class="col-6"><label class="form-label-modern">Item Code *</label><input type="text" id="iCode" class="form-control-modern" placeholder="e.g. FRT001"></div>
-          <div class="col-6"><label class="form-label-modern">Item Name *</label><input type="text" id="iName" class="form-control-modern" placeholder="e.g. Banana"></div>
+          <div class="col-6"><label class="form-label-modern">Item Name *</label><input type="text" id="iName" class="form-control-modern" placeholder="e.g. Banana" oninput="checkDuplicateItemName()"></div>
+          <div class="col-12" id="mergeWarningBox" style="display:none">
+            <div style="background:linear-gradient(135deg,#fff7e6,#fff3cd);border:2px solid #f0a500;border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px">
+              <span style="font-size:22px">⚠️</span>
+              <div>
+                <div style="font-weight:700;color:#b45309;font-size:13px">Item Already Exists in Stock!</div>
+                <div id="mergeWarningText" style="font-size:12px;color:#92400e;margin-top:2px"></div>
+              </div>
+            </div>
+          </div>
           <div class="col-6">
             <label class="form-label-modern">Category *</label>
             <select id="iCategory" class="form-control-modern">
@@ -684,10 +705,6 @@ function lpEye(el) {
 <!-- Toast Container -->
 <div id="toastContainer"></div>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  SCRIPTS — loaded in strict dependency order              -->
-<!--  No ES modules — works by double-click / file:// / server -->
-<!-- ══════════════════════════════════════════════════════════ -->
 
 <!-- 3rd-party libraries -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
