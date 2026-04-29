@@ -1,7 +1,11 @@
 // ============================================================
-//  SIDEBAR CONTROLLER  (global scope)
+//  SIDEBAR CONTROLLER  (global scope) — Light mode only
 // ============================================================
 $(document).ready(function() {
+
+    /* Always force light mode */
+    $('html').attr('data-theme', 'light');
+    localStorage.removeItem('amg_theme');
 
     /* Mobile sidebar toggle */
     $('#sidebarToggleBtn').on('click', function() {
@@ -11,22 +15,6 @@ $(document).ready(function() {
     $('#sidebarOverlay').on('click', function() {
         $('#sidebar').removeClass('open');
         $('#sidebarOverlay').removeClass('show');
-    });
-
-    /* Theme toggle */
-    function updateThemeBtn(theme) {
-        $('#themeToggleBtn').html(theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode');
-    }
-    $('#themeToggleBtn').on('click', function() {
-        var cur  = $('html').attr('data-theme');
-        var next = (cur === 'dark') ? 'light' : 'dark';
-        $('html').attr('data-theme', next);
-        localStorage.setItem('amg_theme', next);
-        updateThemeBtn(next);
-        setTimeout(function() {
-            if (typeof renderDashboard !== 'undefined' && $('#page-dashboard').hasClass('active')) renderDashboard();
-            if (typeof renderReports   !== 'undefined' && $('#page-reports').hasClass('active'))   renderReports();
-        }, 300);
     });
 
     /* Fullscreen */
@@ -42,9 +30,4 @@ $(document).ready(function() {
     $(document).on('keydown', function(e) {
         if (e.key === 'F11') { e.preventDefault(); $('#fullscreenBtn').trigger('click'); }
     });
-
-    /* Apply saved theme */
-    var saved = localStorage.getItem('amg_theme') || 'light';
-    $('html').attr('data-theme', saved);
-    updateThemeBtn(saved);
 });
