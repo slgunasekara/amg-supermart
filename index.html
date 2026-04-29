@@ -20,78 +20,153 @@
 <!--  LOGIN PAGE                                               -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <div id="loginPage" style="display:none">
-  <!-- Animated background -->
-  <div class="login-bg-gradient"></div>
-  <div class="login-orbs">
-    <div class="login-orb orb-1"></div>
-    <div class="login-orb orb-2"></div>
-    <div class="login-orb orb-3"></div>
-  </div>
 
-  <!-- Left branding panel -->
-  <div class="login-panel-left">
-    <div class="login-panel-content">
-      <div class="login-panel-icon">🛒</div>
-      <h2 class="login-panel-title">AMG SUPERMART</h2>
-      <p class="login-panel-sub">Point of Sale System</p>
-      <div class="login-features">
-        <div class="login-feature-item"><i class="bi bi-lightning-charge-fill"></i> Fast Checkout</div>
-        <div class="login-feature-item"><i class="bi bi-shield-check"></i> Secure & Reliable</div>
-        <div class="login-feature-item"><i class="bi bi-bar-chart-line-fill"></i> Smart Analytics</div>
+  <!-- Soft background -->
+  <div class="lp-bg"></div>
+  <div class="lp-wave-top"></div>
+  <div class="lp-wave-bottom"></div>
+
+  <!-- Left showcase panel -->
+  <div class="lp-left">
+    <div class="lp-left-inner">
+
+      <!-- Logo mark -->
+      <div class="lp-logo-mark">
+        <div class="lp-logo-ring"></div>
+        <div class="lp-logo-icon">🛒</div>
       </div>
+
+      <div class="lp-brand">AMG SUPERMART</div>
+      <div class="lp-brand-tag">Point of Sale System</div>
+
+<!--      &lt;!&ndash; Stat cards &ndash;&gt;-->
+<!--      <div class="lp-stats">-->
+<!--        <div class="lp-stat-card">-->
+<!--          <div class="lp-stat-icon"><i class="bi bi-lightning-charge-fill"></i></div>-->
+<!--          <div>-->
+<!--            <div class="lp-stat-val">Fast</div>-->
+<!--            <div class="lp-stat-label">Checkout</div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="lp-stat-card">-->
+<!--          <div class="lp-stat-icon"><i class="bi bi-shield-fill-check"></i></div>-->
+<!--          <div>-->
+<!--            <div class="lp-stat-val">Secure</div>-->
+<!--            <div class="lp-stat-label">& Reliable</div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="lp-stat-card">-->
+<!--          <div class="lp-stat-icon"><i class="bi bi-graph-up-arrow"></i></div>-->
+<!--          <div>-->
+<!--            <div class="lp-stat-val">Smart</div>-->
+<!--            <div class="lp-stat-label">Analytics</div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <!-- Decorative dots grid -->
+      <div class="lp-dot-grid"></div>
     </div>
   </div>
 
   <!-- Right form panel -->
-  <div class="login-panel-right">
-    <div class="login-card">
-      <div class="login-card-header">
-        <div class="login-welcome-badge">Welcome Back</div>
-        <h3 class="login-card-title">Sign In</h3>
-        <p class="login-card-sub">Enter your credentials to continue</p>
+  <div class="lp-right">
+    <div class="lp-form-wrap">
+
+      <!-- Mobile logo (hidden on desktop) -->
+      <div class="lp-mobile-logo">
+        <div class="lp-mobile-icon">🛒</div>
+        <div class="lp-mobile-brand">AMG SUPERMART</div>
       </div>
 
-      <div class="login-form-group">
-        <label class="login-label">Username</label>
-        <div class="login-input-wrap">
-          <span class="login-input-icon"><i class="bi bi-person-fill"></i></span>
-          <input type="text" id="loginUsername" class="login-input" placeholder="Enter your username" autocomplete="off">
+      <!-- Form header -->
+      <div class="lp-form-header">
+        <div class="lp-greeting-pill">
+          <span class="lp-greeting-dot"></span>
+        </div>
+          <br>
+        <h2 class="lp-form-title">Welcome Back</h2>
+      </div>
+
+      <!-- Username field -->
+      <div class="lp-field">
+        <label class="lp-field-label">
+          <i class="bi bi-person"></i> Username
+        </label>
+        <div class="lp-field-box" id="fieldBoxUser">
+          <input type="text" id="loginUsername" class="lp-field-input"
+                 placeholder="Enter your username" autocomplete="off"
+                 onfocus="lpFocus('fieldBoxUser')" onblur="lpBlur('fieldBoxUser')">
+          <span class="lp-field-clear" onclick="lpClear('loginUsername','fieldBoxUser')">
+            <i class="bi bi-x-circle-fill"></i>
+          </span>
         </div>
       </div>
 
-      <div class="login-form-group">
-        <label class="login-label">Password</label>
-        <div class="login-input-wrap">
-          <span class="login-input-icon"><i class="bi bi-lock-fill"></i></span>
-          <input type="password" id="loginPassword" class="login-input" placeholder="Enter your password" autocomplete="off">
-          <span class="login-eye-toggle" onclick="toggleLoginPwd(this)"><i class="bi bi-eye-slash"></i></span>
+      <!-- Password field -->
+      <div class="lp-field">
+        <label class="lp-field-label">
+          <i class="bi bi-lock"></i> Password
+        </label>
+        <div class="lp-field-box" id="fieldBoxPass">
+          <input type="password" id="loginPassword" class="lp-field-input"
+                 placeholder="Enter your password" autocomplete="off"
+                 onfocus="lpFocus('fieldBoxPass')" onblur="lpBlur('fieldBoxPass')">
+          <span class="lp-field-eye" onclick="lpEye(this)">
+            <i class="bi bi-eye-slash-fill"></i>
+          </span>
         </div>
       </div>
 
-      <button id="loginBtn" class="login-btn">
-        <span class="login-btn-text"><i class="bi bi-box-arrow-in-right"></i>&nbsp; SIGN IN</span>
-        <span class="login-btn-loader" style="display:none"><i class="bi bi-arrow-repeat login-spin"></i></span>
+      <!-- Sign in button -->
+      <button id="loginBtn" class="lp-btn">
+        <span class="lp-btn-icon"><i class="bi bi-box-arrow-in-right"></i></span>
+        <span class="lp-btn-text">SIGN IN</span>
+        <span class="lp-btn-arrow"><i class="bi bi-arrow-right"></i></span>
       </button>
 
-      <div class="login-footer-note">
-        <i class="bi bi-info-circle"></i> Contact your administrator if you forgot your credentials.
-      </div>
+      <!-- Divider -->
+      <div class="lp-divider"><span></span></div>
+
+
+      <p class="lp-help-text">
+        <i class="bi bi-info-circle"></i>
+        Forgot your password? Contact your system administrator.
+      </p>
     </div>
   </div>
+
 </div>
 
 <script>
-function toggleLoginPwd(el) {
+function lpFocus(id) {
+  document.getElementById(id).classList.add('lp-focused');
+}
+function lpBlur(id) {
+  document.getElementById(id).classList.remove('lp-focused');
+}
+function lpClear(inputId, boxId) {
+  document.getElementById(inputId).value = '';
+  document.getElementById(inputId).focus();
+}
+function lpEye(el) {
   var inp = document.getElementById('loginPassword');
   var icon = el.querySelector('i');
   if (inp.type === 'password') {
     inp.type = 'text';
-    icon.className = 'bi bi-eye';
+    icon.className = 'bi bi-eye-fill';
   } else {
     inp.type = 'password';
-    icon.className = 'bi bi-eye-slash';
+    icon.className = 'bi bi-eye-slash-fill';
   }
 }
+// Update greeting based on time
+(function() {
+  var h = new Date().getHours();
+  var txt = h < 12 ? 'Good morning!' : h < 17 ? 'Good afternoon!' : 'Good evening!';
+  var el = document.querySelector('.lp-greeting-pill');
+  if (el) el.childNodes[1].textContent = ' ' + txt;
+})();
 </script>
 
 <!-- ══════════════════════════════════════════════════════════ -->
@@ -295,7 +370,7 @@ function toggleLoginPwd(el) {
                   <label class="form-label-modern">Customer <span style="color:var(--text-secondary);font-size:11px;font-weight:400">(Optional)</span></label>
                   <div style="display:flex;gap:8px;align-items:center">
                     <select id="orderCustomer" class="form-control-modern" style="flex:1"></select>
-                    <button class="btn-outline-accent" id="walkInToggle" title="Walk-in customer" style="white-space:nowrap;padding:8px 12px;font-size:12px">
+                    <button class="btn-outline-cart-btn-accent" id="walkInToggle" title="Walk-in customer" style="white-space:nowrap;padding:8px 12px;font-size:12px">
                       <i class="bi bi-person-walking"></i> Walk-in
                     </button>
                   </div>
@@ -313,7 +388,7 @@ function toggleLoginPwd(el) {
                     <input type="number" id="orderDiscount" class="form-control-modern" placeholder="0.00" min="0">
                   </div>
                   <div class="col-6 d-flex align-items-end">
-                    <button class="btn-outline-accent w-100" id="openCalcFromOrder">
+                    <button class="btn-outline-cart-btn-accent w-100" id="openCalcFromOrder">
                       <i class="bi bi-calculator"></i> Calculator
                     </button>
                   </div>
