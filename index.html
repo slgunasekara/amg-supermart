@@ -528,7 +528,16 @@ function lpEye(el) {
       <form id="itemForm" onsubmit="return false">
         <div class="row g-3">
           <div class="col-6"><label class="form-label-modern">Item Code *</label><input type="text" id="iCode" class="form-control-modern" placeholder="e.g. FRT001"></div>
-          <div class="col-6"><label class="form-label-modern">Item Name *</label><input type="text" id="iName" class="form-control-modern" placeholder="e.g. Banana"></div>
+          <div class="col-6"><label class="form-label-modern">Item Name *</label><input type="text" id="iName" class="form-control-modern" placeholder="e.g. Banana" oninput="checkDuplicateItemName()"></div>
+          <div class="col-12" id="mergeWarningBox" style="display:none">
+            <div style="background:linear-gradient(135deg,#fff7e6,#fff3cd);border:2px solid #f0a500;border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px">
+              <span style="font-size:22px">⚠️</span>
+              <div>
+                <div style="font-weight:700;color:#b45309;font-size:13px">Item Already Exists in Stock!</div>
+                <div id="mergeWarningText" style="font-size:12px;color:#92400e;margin-top:2px"></div>
+              </div>
+            </div>
+          </div>
           <div class="col-6">
             <label class="form-label-modern">Category *</label>
             <select id="iCategory" class="form-control-modern">
