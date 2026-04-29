@@ -28,9 +28,11 @@ function renderOrderItemGrid(search, cat) {
 
     /* Category pills */
     var cats  = getCategories();
-    var pills = '<button class="btn-outline-accent btn-sm me-1 mb-1' + (!_orderCat ? ' active-pill' : '') + '" onclick="renderOrderItemGrid(\'\',\'\')">All</button>';
+    var catIcons = { 'Fruits':'🍎', 'Vegetables':'🥦', 'Dry Food':'🌾', 'Beverages':'🥤', 'Snacks':'🍿' };
+    var pills = '<button class="btn-cat-pill' + (!_orderCat ? ' active-pill' : '') + '" onclick="renderOrderItemGrid(\'\',\'\')"><span>🛒 All</span></button>';
     cats.forEach(function(c) {
-        pills += '<button class="btn-outline-accent btn-sm me-1 mb-1' + (_orderCat === c ? ' active-pill' : '') + '" onclick="renderOrderItemGrid(\'\',\'' + c + '\')">' + c + '</button>';
+        var icon = catIcons[c] ? catIcons[c] + ' ' : '';
+        pills += '<button class="btn-cat-pill' + (_orderCat === c ? ' active-pill' : '') + '" onclick="renderOrderItemGrid(\'\',\'' + c + '\')"><span>' + icon + c + '</span></button>';
     });
     $('#orderCatPills').html(pills);
 
