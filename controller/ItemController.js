@@ -1,45 +1,43 @@
+//  ITEM CONTROLLER
 // ============================================================
-//  ITEM CONTROLLER  (global scope)
-// ============================================================
-var _editingItemId   = null;
-var _itemSearchQuery = '';
-var _itemCatFilter   = '';
+let _editingItemId   = null;
+let _itemSearchQuery = '';
+let _itemCatFilter   = '';
 
 function renderItems(search, cat) {
     _itemSearchQuery = (search !== undefined) ? search : _itemSearchQuery;
-    _itemCatFilter   = (cat !== undefined)    ? cat    : _itemCatFilter;
+    _itemCatFilter   = (cat    !== undefined) ? cat    : _itemCatFilter;
 
-    var list = getItemData();
-    if (_itemSearchQuery) list = list.filter(function(i) {
-        return i.name.toLowerCase().includes(_itemSearchQuery.toLowerCase()) ||
-               i.code.toLowerCase().includes(_itemSearchQuery.toLowerCase());
-    });
-    if (_itemCatFilter) list = list.filter(function(i) { return i.category === _itemCatFilter; });
+    let list = getItemData();
+    if (_itemSearchQuery) {
+        const q = _itemSearchQuery.toLowerCase();
+        list = list.filter(i => i.name.toLowerCase().includes(q) || i.code.toLowerCase().includes(q));
+    }
+    if (_itemCatFilter) list = list.filter(i => i.category === _itemCatFilter);
 
-    /* Category filter options */
-    var cats = getCategories();
-    var catOpts = '<option value="">All Categories</option>';
-    cats.forEach(function(c) {
-        catOpts += '<option value="' + c + '" ' + (_itemCatFilter === c ? 'selected' : '') + '>' + c + '</option>';
-    });
+    // Category filter options
+    const cats    = getCategories();
+    const catOpts = ['<option value="">All Categories</option>']
+        .concat(cats.map(c => '<option value="' + escapeHtml(c) + '"' + (_itemCatFilter === c ? ' selected' : '') + '>' + escapeHtml(c) + '</option>'))
+        .join('');
     $('#itemCatFilter').html(catOpts);
 
-    var html = '';
-    list.forEach(function(item) {
-        html += '<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">' +
+    const html = list.map(function (item) {
+        return '<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">' +
             '<div class="item-manage-card">' +
-            (item.image ? '<img src="' + item.image + '" class="item-manage-img" onerror="this.style.display=\'none\'">' : '') +
+            (item.image ? '<img src="' + escapeHtml(item.image) + '" class="item-manage-img" onerror="this.style.display=\'none\'">' : '') +
             '<div class="item-manage-info">' +
-            '<div class="item-manage-code">' + item.code + '</div>' +
-            '<div class="item-manage-name">' + item.name + '</div>' +
+            '<div class="item-manage-code">' + escapeHtml(item.code) + '</div>' +
+            '<div class="item-manage-name">' + escapeHtml(item.name) + '</div>' +
             '<div class="item-manage-price">' + formatCurrency(item.price) + '</div>' +
-            '<div style="font-size:12px;color:var(--text-secondary)">Stock: ' + item.qty + ' ' + item.unit +
+            '<div style="font-size:12px;color:var(--text-secondary)">Stock: ' + item.qty + ' ' + escapeHtml(item.unit) +
             (item.qty < 30 ? ' <span class="badge-modern badge-danger">Low</span>' : '') + '</div>' +
             '<div class="item-manage-actions">' +
             '<button class="btn-warning-sm flex-fill" onclick="editItem(\'' + item.id + '\')"><i class="bi bi-pencil"></i> Edit</button>' +
             '<button class="btn-danger-sm" onclick="deleteItem(\'' + item.id + '\')"><i class="bi bi-trash"></i></button>' +
             '</div></div></div></div>';
-    });
+    }).join('');
+
     $('#itemGrid').html(html || '<div class="col-12 text-center py-5" style="color:var(--text-secondary)">No items found</div>');
     $('#itemCount').text(list.length);
 }
@@ -47,32 +45,36 @@ function renderItems(search, cat) {
 function openItemModal(editId) {
     _editingItemId = editId || null;
     if (editId) {
-        var item = getItemById(editId);
+        const item = getItemById(editId);
         $('#itemModalTitle').text('✏️ EDIT ITEM');
-        $('#iCode').val(item.code); $('#iName').val(item.name);
-        $('#iCategory').val(item.category); $('#iPrice').val(item.price);
-        $('#iQty').val(item.qty); $('#iUnit').val(item.unit);
+        $('#iCode').val(item.code);
+        $('#iName').val(item.name);
+        $('#iCategory').val(item.category);
+        $('#iPrice').val(item.price);
+        $('#iQty').val(item.qty);
+        $('#iUnit').val(item.unit);
         $('#iImage').val(item.image || '');
         if (item.image) { $('#imgPreview').attr('src', item.image).show(); } else { $('#imgPreview').hide(); }
     } else {
         $('#itemModalTitle').text('➕ ADD ITEM');
-        $('#itemForm')[0].reset(); $('#imgPreview').hide();
+        $('#itemForm')[0].reset();
+        $('#imgPreview').hide();
         $('#mergeWarningBox').hide();
     }
     $('#itemModal').addClass('show');
 }
 
-
+// FIX: triggered on #iName change (was incorrectly bound to #iQty)
 function checkDuplicateItemName() {
-    var name = $('#iName').val().trim();
+    const name = $('#iName').val().trim();
     if (!name || _editingItemId) { $('#mergeWarningBox').hide(); return; }
-    var duplicate = getItemByName(name);
+    const duplicate = getItemByName(name);
     if (duplicate) {
-        var newQty = parseInt($('#iQty').val()) || 0;
+        const newQty = parseInt($('#iQty').val()) || 0;
         $('#mergeWarningText').html(
-            'Current stock: <strong>' + duplicate.qty + ' ' + duplicate.unit + '</strong> &nbsp;|&nbsp; ' +
+            'Current stock: <strong>' + duplicate.qty + ' ' + escapeHtml(duplicate.unit) + '</strong> &nbsp;|&nbsp; ' +
             'You are adding: <strong>+' + (newQty || '?') + '</strong> &nbsp;→&nbsp; ' +
-            'New total will be: <strong>' + (duplicate.qty + newQty) + ' ' + duplicate.unit + '</strong><br>' +
+            'New total will be: <strong>' + (duplicate.qty + newQty) + ' ' + escapeHtml(duplicate.unit) + '</strong><br>' +
             '<span style="opacity:0.8">Saving will merge the quantity — no duplicate will be created.</span>'
         );
         $('#mergeWarningBox').show();
@@ -82,13 +84,13 @@ function checkDuplicateItemName() {
 }
 
 function saveItem() {
-    var code  = $('#iCode').val().trim();
-    var name  = $('#iName').val().trim();
-    var cat   = $('#iCategory').val();
-    var price = parseFloat($('#iPrice').val());
-    var qty   = parseInt($('#iQty').val());
-    var unit  = $('#iUnit').val().trim();
-    var image = $('#iImage').val().trim();
+    const code  = $('#iCode').val().trim();
+    const name  = $('#iName').val().trim();
+    const cat   = $('#iCategory').val();
+    const price = parseFloat($('#iPrice').val());
+    const qty   = parseInt($('#iQty').val());
+    const unit  = $('#iUnit').val().trim();
+    const image = $('#iImage').val().trim();
 
     if (!check_not_empty(code))  { showToast('Item code is required', 'error'); return; }
     if (!check_not_empty(name))  { showToast('Item name is required', 'error'); return; }
@@ -102,11 +104,10 @@ function saveItem() {
         updateItemData(_editingItemId, code, name, cat, price, qty, unit, image);
         showToast('Item updated', 'success');
     } else {
-        /* ── MERGE CHECK: if an item with the same name already exists, merge qty ── */
-        var duplicate = getItemByName(name);
+        const duplicate = getItemByName(name);
         if (duplicate) {
             mergeItemQty(duplicate.id, qty);
-            showToast('⚡ "' + name + '" already exists — Qty merged! (+'  + qty + ')', 'warning');
+            showToast('⚡ "' + name + '" already exists — Qty merged! (+' + qty + ')', 'warning');
         } else {
             addItemData(code, name, cat, price, qty, unit, image);
             showToast('Item added', 'success');
@@ -118,20 +119,23 @@ function saveItem() {
 
 function editItem(id)   { openItemModal(id); }
 function deleteItem(id) {
-    showConfirm('Delete Item?', 'This will remove the item from inventory.').then(function(result) {
+    showConfirm('Delete Item?', 'This will remove the item from inventory.').then(function (result) {
         if (result.isConfirmed) { deleteItemData(id); renderItems(); showToast('Item deleted', 'info'); }
     });
 }
 function previewItemImage() {
-    var url = $('#iImage').val().trim();
+    const url = $('#iImage').val().trim();
     if (url) { $('#imgPreview').attr('src', url).show(); } else { $('#imgPreview').hide(); }
 }
 
-$(document).ready(function() {
-    $('#addItemBtn').on('click', function(){ openItemModal(); });
+$(document).ready(function () {
+    $('#addItemBtn').on('click', function () { openItemModal(); });
     $('#saveItemBtn').on('click', saveItem);
-    $('#itemSearch').on('input', function(){ renderItems($(this).val(), _itemCatFilter); });
-    $('#itemCatFilter').on('change', function(){ renderItems(_itemSearchQuery, $(this).val()); });
+    // Debounced search
+    $('#itemSearch').on('input', debounce(function () { renderItems($(this).val(), _itemCatFilter); }, 250));
+    $('#itemCatFilter').on('change', function () { renderItems(_itemSearchQuery, $(this).val()); });
     $('#iImage').on('input', previewItemImage);
+    // FIX: duplicate check fires on name change, not qty change
+    $('#iName').on('input', checkDuplicateItemName);
     $('#iQty').on('input', checkDuplicateItemName);
 });

@@ -1,13 +1,11 @@
-// ============================================================
-//  DB — Global data store (no ES modules)
+//  DB
 // ============================================================
 var users_db = [
-    { id: 'U001', username: 'admin',  password: 'admin123',  name: 'Admin User',    role: 'Administrator', email: 'admin@amgsupermart.com',  active: true  },
-    { id: 'U002', username: 'amg',  password: 'amg123',  name: 'Praveena Gunasekara',  role: 'Administrator',       email: 'praveengunasekara7@gmail.com',  active: true  },
-    { id: 'U003', username: 'mendis', password: 'nmendis123', name: 'mendis danushka',  role: 'Manager',       email: 'mendisdanushka886@gmail.com', active: true  },
-    { id: 'U004', username: 'sampath',   password: 'sampath123',   name: 'Sampath Fernando', role: 'Cashier',       email: 'sampath899@gmail.com',   active: true },
-    { id: 'U005', username: 'nimal',   password: 'nimal123',   name: 'Nimal Silva', role: 'Cashier',       email: 'nimal3@gmail.com',   active: false }
-
+    { id: 'U001', username: 'admin',  password: 'admin123',  name: 'Admin User',    role: 'Administrator', email: 'admin@amgsupermart.com',  active: true,  securityQuestion: "What is your mother's maiden name?", securityAnswer: 'mendis' },
+    { id: 'U002', username: 'amg',  password: 'amg123',  name: 'Praveena Gunasekara',  role: 'Administrator', email: 'praveengunasekara7@gmail.com',  active: true,  securityQuestion: "What is your favorite color?", securityAnswer: 'red' },
+    { id: 'U003', username: 'mendis', password: 'nmendis123', name: 'mendis danushka',  role: 'Manager',       email: 'mendisdanushka886@gmail.com', active: true,  securityQuestion: "What city were you born in?", securityAnswer: 'galle' },
+    { id: 'U004', username: 'sampath',   password: 'sampath123',   name: 'Sampath Fernando', role: 'Cashier', email: 'sampath899@gmail.com',   active: true,  securityQuestion: "What was the name of your first pet?", securityAnswer: 'pinki' },
+    { id: 'U005', username: 'nimal',   password: 'nimal123',   name: 'Nimal Silva', role: 'Cashier',         email: 'nimal3@gmail.com',   active: false, securityQuestion: "What is your mother's maiden name?", securityAnswer: 'silva' }
 ];
 
 var customers_db = [

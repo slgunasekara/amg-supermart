@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AMG Supermart — POS System</title>
 
-<!--Animate.style -->
+    <link rel="icon" type="image/x-icon" href="assets/images/ico.png">
+
+
+    <!--Animate.style -->
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -27,154 +30,181 @@
 
 <div id="loginPage" style="display:none">
 
-  <!-- Soft background -->
-  <div class="lp-bg"></div>
-  <div class="lp-wave-top"></div>
-  <div class="lp-wave-bottom"></div>
+  <!-- Ambient background blobs -->
+  <div class="lp-blob lp-blob-1"></div>
+  <div class="lp-blob lp-blob-2"></div>
+  <div class="lp-blob lp-blob-3"></div>
 
-  <!-- Left showcase panel -->
-  <div class="lp-left">
-    <div class="lp-left-inner">
+  <!-- Centered card -->
+  <div class="lp-card">
 
-      <!-- Logo mark -->
-      <div class="lp-logo-mark">
-        <div class="lp-logo-ring"></div>
-        <div class="lp-logo-icon">🛒</div>
+    <!-- Left panel -->
+    <div class="lp-left">
+      <div class="lp-left-inner">
+
+        <div class="lp-logo-box">
+          <img id="lpLogoImg" src="assets/images/ico.png" alt="AMG Supermart Logo"
+               style="width:68px;height:68px;object-fit:contain;">
+        </div>
+        <div class="lp-brand-name">AMG<br>Supermart</div>
+        <div class="lp-brand-sub">MANAGEMENT SYSTEM</div>
+        <div class="lp-divider-line"></div>
+        <div class="lp-tagline">Your complete retail management<br>solution. Smart. Fast. Reliable.</div>
+        <div class="lp-circle lp-circle-1"></div>
+        <div class="lp-circle lp-circle-2"></div>
+        <div class="lp-circle lp-circle-3"></div>
       </div>
-
-      <div class="lp-brand">AMG SUPERMART</div>
-      <div class="lp-brand-tag">Point of Sale System</div>
-
-<!--      &lt;!&ndash; Stat cards &ndash;&gt;-->
-<!--      <div class="lp-stats">-->
-<!--        <div class="lp-stat-card">-->
-<!--          <div class="lp-stat-icon"><i class="bi bi-lightning-charge-fill"></i></div>-->
-<!--          <div>-->
-<!--            <div class="lp-stat-val">Fast</div>-->
-<!--            <div class="lp-stat-label">Checkout</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="lp-stat-card">-->
-<!--          <div class="lp-stat-icon"><i class="bi bi-shield-fill-check"></i></div>-->
-<!--          <div>-->
-<!--            <div class="lp-stat-val">Secure</div>-->
-<!--            <div class="lp-stat-label">& Reliable</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="lp-stat-card">-->
-<!--          <div class="lp-stat-icon"><i class="bi bi-graph-up-arrow"></i></div>-->
-<!--          <div>-->
-<!--            <div class="lp-stat-val">Smart</div>-->
-<!--            <div class="lp-stat-label">Analytics</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-      <!-- Decorative dots grid -->
-      <div class="lp-dot-grid"></div>
+      <div class="lp-left-footer">© 2026 AMG Group · All Rights Reserved</div>
     </div>
-  </div>
 
-  <!-- Right form panel -->
-  <div class="lp-right">
-    <div class="lp-form-wrap">
+    <!-- Right panel -->
+    <div class="lp-right">
 
-      <!-- Mobile logo (hidden on desktop) -->
-      <div class="lp-mobile-logo">
-        <div class="lp-mobile-icon">🛒</div>
-          <div class="lp-mobile-brand">AMG SUPERMART</div>
-      </div>
+      <!-- ── LOGIN VIEW ── -->
+      <div id="loginView" class="lp-form-wrap">
 
-      <!-- Form header -->
-      <div class="lp-form-header">
-        <div class="lp-greeting-pill">
-          <span class="lp-greeting-dot"></span>
+        <div class="lp-greeting-row">
+          <span id="lpGreetingText" class="lp-greeting-text animate__animated animate__bounce animate__delay-2s">Good Morning!</span>
         </div>
-          <br>
-        <h2 class="lp-form-title">Welcome Back</h2>
-      </div>
 
-      <!-- Username field -->
-      <div class="lp-field">
-        <label class="lp-field-label">
-          <i class="bi bi-person"></i> Username
-        </label>
-        <div class="lp-field-box" id="fieldBoxUser">
-          <input type="text" id="loginUsername" class="lp-field-input"
-                 placeholder="Enter your username" autocomplete="off"
-                 onfocus="lpFocus('fieldBoxUser')" onblur="lpBlur('fieldBoxUser')">
-          <span class="lp-field-clear" onclick="lpClear('loginUsername','fieldBoxUser')">
-            <i class="bi bi-x-circle-fill"></i>
-          </span>
+        <h2 class="lp-form-title">Login to Your Account</h2>
+        <p class="lp-form-sub">Enter your credentials to continue</p>
+
+        <div class="lp-field">
+          <label class="lp-field-label">
+            <i class="bi bi-person-fill"></i> Username
+          </label>
+          <div class="lp-field-box" id="fieldBoxUser">
+            <i class="bi bi-envelope lp-field-ico"></i>
+            <input type="text" id="loginUsername" class="lp-field-input"
+                   placeholder="Enter your username" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="lp-field">
+          <label class="lp-field-label">
+            <i class="bi bi-lock-fill"></i> Password
+          </label>
+          <div class="lp-field-box" id="fieldBoxPass">
+            <i class="bi bi-key lp-field-ico"></i>
+            <input type="password" id="loginPassword" class="lp-field-input"
+                   placeholder="Enter your password" autocomplete="off">
+            <span class="lp-field-eye" id="lpEyeBtn">
+              <i class="bi bi-eye-slash-fill"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="lp-remember-row">
+          <label class="lp-remember-label">
+            <input type="checkbox" id="rememberMe"> Remember me
+          </label>
+          <a href="#" id="forgotPasswordLink" class="lp-forgot-link">Forgot password?</a>
+        </div>
+
+        <button id="loginBtn" class="lp-btn">
+          <span class="lp-btn-icon"><i class="bi bi-rocket-takeoff-fill"></i></span>
+          <span class="lp-btn-text">Login to Dashboard</span>
+        </button>
+
+        <div class="lp-footer-credit">
+          © 2026 AMG Group · All Rights Reserved<br>
+          Created by: <strong>Praveena Gunasekara (AMG)</strong>
         </div>
       </div>
 
-      <!-- Password field -->
-      <div class="lp-field">
-        <label class="lp-field-label">
-          <i class="bi bi-lock"></i> Password
-        </label>
-        <div class="lp-field-box" id="fieldBoxPass">
-          <input type="password" id="loginPassword" class="lp-field-input"
-                 placeholder="Enter your password" autocomplete="off"
-                 onfocus="lpFocus('fieldBoxPass')" onblur="lpBlur('fieldBoxPass')">
-          <span class="lp-field-eye" onclick="lpEye(this)">
-            <i class="bi bi-eye-slash-fill"></i>
-          </span>
+      <!-- ── FORGOT PASSWORD VIEW ── -->
+      <div id="forgotView" class="lp-form-wrap" style="display:none">
+
+        <button id="fpBackToLogin" class="lp-back-btn">
+          <i class="bi bi-arrow-left"></i> Back to Login
+        </button>
+
+        <!-- Stepper -->
+        <div class="fp-stepper">
+          <div class="fp-step fp-step-active" id="fpStep1">
+            <div class="fp-step-num">1</div>
+            <div class="fp-step-label">Username</div>
+          </div>
+          <div class="fp-connector"></div>
+          <div class="fp-step fp-step-pending" id="fpStep2">
+            <div class="fp-step-num">2</div>
+            <div class="fp-step-label">Security Question</div>
+          </div>
+          <div class="fp-connector"></div>
+          <div class="fp-step fp-step-pending" id="fpStep3">
+            <div class="fp-step-num">3</div>
+            <div class="fp-step-label">Done</div>
+          </div>
         </div>
-      </div>
 
-      <!-- Sign in button -->
-      <button id="loginBtn" class="lp-btn">
-        <span class="lp-btn-icon"><i class="bi bi-box-arrow-in-right"></i></span>
-        <span class="lp-btn-text">SIGN IN</span>
-        <span class="lp-btn-arrow"><i class="bi bi-arrow-right"></i></span>
-      </button>
+        <h2 class="lp-form-title" style="margin-top:18px">Forgot Password?</h2>
 
-      <!-- Divider -->
-      <div class="lp-divider"><span></span></div>
+        <!-- Step 1: Enter username -->
+        <div class="fp-step-content" id="fpContent1">
+          <p class="lp-form-sub">Enter your username to find your account</p>
+          <div class="lp-field" style="margin-top:18px">
+            <label class="lp-field-label"><i class="bi bi-person-fill"></i> Username</label>
+            <div class="lp-field-box">
+              <i class="bi bi-envelope lp-field-ico"></i>
+              <input type="text" id="fpUsername" class="lp-field-input" placeholder="Enter your username" autocomplete="off">
+            </div>
+          </div>
+          <button id="fpFindBtn" class="lp-btn" style="margin-top:8px">
+            <span class="lp-btn-icon"><i class="bi bi-search"></i></span>
+            <span class="lp-btn-text">Find My Account</span>
+          </button>
+        </div>
 
+        <!-- Step 2: Security question -->
+        <div class="fp-step-content" id="fpContent2" style="display:none">
+          <p class="lp-form-sub">Answer your security question</p>
+          <div class="fp-question-box" style="margin-top:18px">
+            <i class="bi bi-shield-lock-fill"></i>
+            <span id="fpQuestionText">-</span>
+          </div>
+          <div class="lp-field" style="margin-top:14px">
+            <label class="lp-field-label"><i class="bi bi-chat-left-text-fill"></i> Your Answer</label>
+            <div class="lp-field-box">
+              <i class="bi bi-pencil lp-field-ico"></i>
+              <input type="text" id="fpAnswer" class="lp-field-input" placeholder="Enter your answer" autocomplete="off">
+            </div>
+          </div>
+          <button id="fpCheckBtn" class="lp-btn" style="margin-top:8px">
+            <span class="lp-btn-icon"><i class="bi bi-check-circle"></i></span>
+            <span class="lp-btn-text">Verify Answer</span>
+          </button>
+        </div>
 
-      <p class="lp-help-text">
-        <i class="bi bi-info-circle"></i>
-        Forgot your password? Contact your system administrator.
-      </p>
-    </div>
-  </div>
+        <!-- Step 3: New password -->
+        <div class="fp-step-content" id="fpContent3" style="display:none">
+          <p class="lp-form-sub">Set your new password</p>
+          <div class="lp-field" style="margin-top:18px">
+            <label class="lp-field-label"><i class="bi bi-lock-fill"></i> New Password</label>
+            <div class="lp-field-box">
+              <i class="bi bi-key lp-field-ico"></i>
+              <input type="password" id="fpNewPass" class="lp-field-input" placeholder="Enter new password">
+            </div>
+          </div>
+          <div class="lp-field">
+            <label class="lp-field-label"><i class="bi bi-lock-fill"></i> Confirm Password</label>
+            <div class="lp-field-box">
+              <i class="bi bi-key lp-field-ico"></i>
+              <input type="password" id="fpConfirmPass" class="lp-field-input" placeholder="Confirm new password">
+            </div>
+          </div>
+          <button id="fpResetBtn" class="lp-btn" style="margin-top:8px">
+            <span class="lp-btn-icon"><i class="bi bi-check2-circle"></i></span>
+            <span class="lp-btn-text">Reset Password</span>
+          </button>
+        </div>
+
+      </div><!-- /forgotView -->
+
+    </div><!-- /lp-right -->
+  </div><!-- /lp-card -->
 
 </div>
-
-<script>
-function lpFocus(id) {
-  document.getElementById(id).classList.add('lp-focused');
-}
-function lpBlur(id) {
-  document.getElementById(id).classList.remove('lp-focused');
-}
-function lpClear(inputId, boxId) {
-  document.getElementById(inputId).value = '';
-  document.getElementById(inputId).focus();
-}
-function lpEye(el) {
-  var inp = document.getElementById('loginPassword');
-  var icon = el.querySelector('i');
-  if (inp.type === 'password') {
-    inp.type = 'text';
-    icon.className = 'bi bi-eye-fill';
-  } else {
-    inp.type = 'password';
-    icon.className = 'bi bi-eye-slash-fill';
-  }
-}
-
-// Update time situation
-(function() {
-  var h = new Date().getHours();
-  var txt = h < 12 ? 'Good morning!' : h < 17 ? 'Good afternoon!' : 'Good evening!';
-  var el = document.querySelector('.lp-greeting-pill');
-  if (el) el.childNodes[1].textContent = ' ' + txt;
-})();
-</script>
 
 <!-- ============================================================================================ -->
 <!--                                     MAIN APP                                                 -->
@@ -425,7 +455,7 @@ function lpEye(el) {
         </div>
       </section>
 
-      <!-- ══ ORDER HISTORY ══════════════════════════════════ -->
+      <!-- ORDER HISTORY  -->
         <!-- ============================================================================================ -->
       <section id="page-history" class="page-section">
         <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
@@ -445,7 +475,7 @@ function lpEye(el) {
         </div>
       </section>
 
-      <!-- ══ REPORTS ════════════════════════════════════════ -->
+      <!-- REPORTS-->
         <!-- ============================================================================================ -->
       <section id="page-reports" class="page-section">
         <h4 style="font-family:'Orbitron',monospace;font-size:16px;color:var(--accent);margin-bottom:20px">
@@ -484,7 +514,7 @@ function lpEye(el) {
         </div>
       </section>
 
-      <!-- ══ USERS ══════════════════════════════════════════ -->
+      <!--USERS-->
         <!-- ============================================================================================ -->
       <section id="page-users" class="page-section">
         <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
@@ -514,9 +544,9 @@ function lpEye(el) {
   </div><!-- /mainContent -->
 </div><!-- /mainApp -->
 
-<!-- ══════════════════════════════════════════════════════════ -->
+
 <!--  MODALS                                                   -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ============================================================================================ -->
 
 <!-- Customer Modal -->
 <div class="modal-overlay" id="customerModal">
@@ -609,6 +639,22 @@ function lpEye(el) {
             <option>Administrator</option><option>Manager</option><option>Cashier</option>
           </select>
         </div>
+        <hr style="border-color:var(--border-light);margin:16px 0">
+        <div style="font-size:12px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:12px;text-transform:uppercase"><i class="bi bi-shield-lock"></i> Security Question (for password recovery)</div>
+        <div class="mb-3">
+          <label class="form-label-modern">Security Question *</label>
+          <select id="uSecurityQuestion" class="form-control-modern">
+            <option value="">Select a question</option>
+            <option>What is your mother's maiden name?</option>
+            <option>What was the name of your first pet?</option>
+            <option>What city were you born in?</option>
+            <option>What is your favorite color?</option>
+            <option>What was the name of your primary school?</option>
+            <option>What is your favorite food?</option>
+            <option>What is your father's middle name?</option>
+          </select>
+        </div>
+        <div class="mb-3"><label class="form-label-modern">Answer *</label><input type="text" id="uSecurityAnswer" class="form-control-modern" placeholder="Your answer (case-insensitive)"></div>
       </form>
     </div>
     <div class="modal-footer">

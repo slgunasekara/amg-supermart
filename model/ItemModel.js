@@ -1,5 +1,4 @@
-// ============================================================
-//  ITEM MODEL  (global scope — depends on db/db.js)
+//  ITEM MODEL
 // ============================================================
 function nextItemId() {
     var nums = items_db.map(function(i) { return parseInt(i.id.slice(1)); });

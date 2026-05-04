@@ -1,31 +1,35 @@
+//  CUSTOMER CONTROLLER
 // ============================================================
-//  CUSTOMER CONTROLLER  (global scope)
-// ============================================================
-var _editingCustomerId = null;
+let _editingCustomerId = null;
 
 function renderCustomers(search) {
     search = search || '';
-    var list = getCustomerData();
-    if (search) list = list.filter(function(c) {
-        return c.name.toLowerCase().includes(search.toLowerCase()) ||
-               c.contact.includes(search) ||
-               c.id.toLowerCase().includes(search.toLowerCase());
-    });
-    var html = '';
-    list.forEach(function(c) {
-        html += '<tr>' +
-            '<td><span class="order-id">' + c.id + '</span></td>' +
+    let list = getCustomerData();
+    if (search) {
+        const q = search.toLowerCase();
+        list = list.filter(c =>
+            c.name.toLowerCase().includes(q) ||
+            c.contact.includes(search) ||
+            c.id.toLowerCase().includes(q)
+        );
+    }
+
+    const html = list.map(function (c) {
+        return '<tr>' +
+            '<td><span class="order-id">' + escapeHtml(c.id) + '</span></td>' +
             '<td><div class="d-flex align-items-center gap-2">' +
-            '<div class="user-row-avatar">' + generateAvatar(c.name) + '</div>' +
-            '<div><div style="font-weight:600">' + c.name + '</div>' +
-            '<div style="font-size:11px;color:var(--text-secondary)">' + (c.email || '-') + '</div></div></div></td>' +
-            '<td>' + c.contact + '</td>' +
-            '<td>' + c.address + '</td>' +
+            '<div class="user-row-avatar">' + escapeHtml(generateAvatar(c.name)) + '</div>' +
+            '<div><div style="font-weight:600">' + escapeHtml(c.name) + '</div>' +
+            '<div style="font-size:11px;color:var(--text-secondary)">' + escapeHtml(c.email || '-') + '</div></div></div></td>' +
+            '<td>' + escapeHtml(c.contact) + '</td>' +
+            '<td>' + escapeHtml(c.address) + '</td>' +
             '<td><span class="badge-modern badge-info">🏆 ' + c.points + ' pts</span></td>' +
-            '<td><button class="btn-warning-sm me-1" onclick="editCustomer(\'' + c.id + '\')"><i class="bi bi-pencil"></i></button>' +
-            '<button class="btn-danger-sm" onclick="deleteCustomer(\'' + c.id + '\')"><i class="bi bi-trash"></i></button></td>' +
-            '</tr>';
-    });
+            '<td>' +
+            '<button class="btn-warning-sm me-1" onclick="editCustomer(\'' + c.id + '\')"><i class="bi bi-pencil"></i></button>' +
+            '<button class="btn-danger-sm" onclick="deleteCustomer(\'' + c.id + '\')"><i class="bi bi-trash"></i></button>' +
+            '</td></tr>';
+    }).join('');
+
     $('#customerTableBody').html(html || '<tr><td colspan="6" class="text-center py-4" style="color:var(--text-secondary)">No customers found</td></tr>');
     $('#customerCount').text(list.length);
 }
@@ -33,10 +37,12 @@ function renderCustomers(search) {
 function openCustomerModal(editId) {
     _editingCustomerId = editId || null;
     if (editId) {
-        var c = getCustomerById(editId);
+        const c = getCustomerById(editId);
         $('#custModalTitle').text('✏️ EDIT CUSTOMER');
-        $('#custName').val(c.name); $('#custContact').val(c.contact);
-        $('#custAddress').val(c.address); $('#custEmail').val(c.email || '');
+        $('#custName').val(c.name);
+        $('#custContact').val(c.contact);
+        $('#custAddress').val(c.address);
+        $('#custEmail').val(c.email || '');
     } else {
         $('#custModalTitle').text('➕ ADD CUSTOMER');
         $('#custForm')[0].reset();
@@ -45,10 +51,10 @@ function openCustomerModal(editId) {
 }
 
 function saveCustomer() {
-    var name    = $('#custName').val().trim();
-    var contact = $('#custContact').val().trim();
-    var address = $('#custAddress').val().trim();
-    var email   = $('#custEmail').val().trim();
+    const name    = $('#custName').val().trim();
+    const contact = $('#custContact').val().trim();
+    const address = $('#custAddress').val().trim();
+    const email   = $('#custEmail').val().trim();
 
     if (!check_not_empty(name))    { showToast('Name is required', 'error'); return; }
     if (!check_phone(contact))     { showToast('Invalid contact number (e.g. 0771234567)', 'error'); return; }
@@ -68,7 +74,7 @@ function saveCustomer() {
 
 function editCustomer(id)   { openCustomerModal(id); }
 function deleteCustomer(id) {
-    showConfirm('Delete Customer?', 'This action cannot be undone.').then(function(result) {
+    showConfirm('Delete Customer?', 'This action cannot be undone.').then(function (result) {
         if (result.isConfirmed) {
             deleteCustomerData(id);
             renderCustomers();
@@ -77,8 +83,8 @@ function deleteCustomer(id) {
     });
 }
 
-$(document).ready(function() {
-    $('#addCustomerBtn').on('click', function(){ openCustomerModal(); });
+$(document).ready(function () {
+    $('#addCustomerBtn').on('click', function () { openCustomerModal(); });
     $('#saveCustomerBtn').on('click', saveCustomer);
-    $('#customerSearch').on('input', function(){ renderCustomers($(this).val()); });
+    $('#customerSearch').on('input', debounce(function () { renderCustomers($(this).val()); }, 250));
 });

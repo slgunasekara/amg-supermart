@@ -1,12 +1,30 @@
+//  VIEW UTILITIES
 // ============================================================
-//  VIEW UTILITIES  (global scope)
-// ============================================================
+
+function escapeHtml(str) {
+    return String(str == null ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+
+function debounce(fn, delay) {
+    let timer;
+    return function () {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, arguments), delay);
+    };
+}
+
 function showToast(msg, type) {
     type = type || 'success';
-    var icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
-    var $t = $('<div class="toast-msg toast-' + type + '"><span class="toast-icon">' + (icons[type] || 'ℹ️') + '</span><span>' + msg + '</span></div>');
+    const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
+    const $t = $('<div class="toast-msg toast-' + type + '"><span class="toast-icon">' + (icons[type] || 'ℹ️') + '</span><span>' + escapeHtml(msg) + '</span></div>');
     $('#toastContainer').append($t);
-    setTimeout(function() { $t.addClass('fade-out'); setTimeout(function() { $t.remove(); }, 350); }, 3200);
+    setTimeout(function () { $t.addClass('fade-out'); setTimeout(function () { $t.remove(); }, 350); }, 3200);
 }
 
 function formatCurrency(n) {
@@ -18,7 +36,7 @@ function formatDate(d) {
 }
 
 function generateAvatar(name) {
-    return name.split(' ').map(function(w) { return w[0]; }).join('').toUpperCase().slice(0, 2);
+    return String(name).split(' ').map(function (w) { return w[0]; }).join('').toUpperCase().slice(0, 2);
 }
 
 function showConfirm(title, text) {

@@ -1,5 +1,4 @@
-// ============================================================
-//  ORDER MODEL  (global scope — depends on db/db.js)
+//  ORDER MODEL
 // ============================================================
 function nextOrderId() {
     var nums = orders_db.map(function(o) { return parseInt(o.id.split('-')[1]); });

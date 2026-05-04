@@ -1,5 +1,4 @@
-// ============================================================
-//  CUSTOMER MODEL  (global scope — depends on db/db.js)
+//  CUSTOMER MODEL
 // ============================================================
 function nextCustomerId() {
     var nums = customers_db.map(function(c) { return parseInt(c.id.slice(1)); });
