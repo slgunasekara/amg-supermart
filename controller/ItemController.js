@@ -32,7 +32,7 @@ function renderItems(search, cat) {
             '<div class="item-manage-price">' + formatCurrency(item.price) + '</div>' +
             '<div style="font-size:12px;color:var(--text-secondary)">Stock: ' + item.qty + ' ' + escapeHtml(item.unit) +
             (item.qty < 30 ? ' <span class="badge-modern badge-danger">Low</span>' : '') + '</div>' +
-            '<div class="item-manage-actions">' +
+            '<div class="item-manage-actions d-flex gap-2 mt-2">' +
             '<button class="btn-warning-sm flex-fill" onclick="editItem(\'' + item.id + '\')"><i class="bi bi-pencil"></i> Edit</button>' +
             '<button class="btn-danger-sm" onclick="deleteItem(\'' + item.id + '\')"><i class="bi bi-trash"></i></button>' +
             '</div></div></div></div>';

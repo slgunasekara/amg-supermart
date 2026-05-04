@@ -91,7 +91,7 @@ function renderCatChart() {
 function renderActivity() {
     const recent = getOrderData().slice().reverse().slice(0, 5);
     const html = recent.map(function (o) {
-        return '<div class="activity-item"><div class="activity-dot"></div><div>' +
+        return '<div class="activity-item d-flex align-items-start gap-3"><div class="activity-dot"></div><div>' +
             '<div class="activity-text"><strong>' + escapeHtml(o.customerName) + '</strong> — ' + formatCurrency(o.total) + '</div>' +
             '<div class="activity-time">' + escapeHtml(o.date) + ' at ' + escapeHtml(o.time) + ' · ' + o.items.length + ' item(s)</div>' +
             '</div></div>';

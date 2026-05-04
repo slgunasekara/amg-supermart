@@ -43,17 +43,18 @@ function renderOrderItemGrid(search, cat) {
     const cart = getCartData();
     const html = list.map(function (item) {
         const inCart = cart.find(ci => ci.itemId === item.id);
-        return '<div class="item-card' + (item.qty === 0 ? ' out-of-stock' : '') + '" onclick="addToCartHandler(\'' + item.id + '\')">' +
+        return '<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">' +
+            '<div class="item-card' + (item.qty === 0 ? ' out-of-stock' : '') + '" onclick="addToCartHandler(\'' + item.id + '\')">' +
             (item.image ? '<img src="' + escapeHtml(item.image) + '" class="item-card-img" onerror="this.style.display=\'none\'">' : '') +
             '<div class="item-card-body">' +
             '<div class="item-card-name">' + escapeHtml(item.name) + '</div>' +
             '<div class="item-card-price">' + formatCurrency(item.price) + '</div>' +
             '<div class="item-card-stock">' + item.qty + ' ' + escapeHtml(item.unit) + ' left</div></div>' +
             '<div class="item-select-overlay">' + (inCart ? '✔' : '+') + '</div>' +
-            '</div>';
+            '</div></div>';
     }).join('');
 
-    $('#orderItemGrid').html(html || '<div style="color:var(--text-secondary);padding:20px;text-align:center">No items</div>');
+    $('#orderItemGrid').html(html || '<div class="col-12 text-center py-4" style="color:var(--text-secondary)">No items available</div>');
 }
 
 function addToCartHandler(itemId) {
@@ -73,12 +74,12 @@ function renderCart() {
         $('#cartItems').html('<div class="text-center py-4" style="color:var(--text-secondary);font-size:13px"><div style="font-size:36px;margin-bottom:10px">🛒</div>Select items to add to cart</div>');
     } else {
         const html = cart.map(function (ci) {
-            return '<div class="cart-item">' +
+            return '<div class="cart-item d-flex align-items-center gap-2">' +
                 (ci.image
                     ? '<img src="' + escapeHtml(ci.image) + '" class="cart-item-img" onerror="this.style.display=\'none\'">'
                     : '<div style="width:40px;height:40px;border-radius:8px;background:var(--accent-light);display:flex;align-items:center;justify-content:center">🛒</div>') +
                 '<div class="cart-item-name">' + escapeHtml(ci.name) + '</div>' +
-                '<div class="cart-qty-ctrl">' +
+                '<div class="cart-qty-ctrl d-flex align-items-center gap-1">' +
                 '<button class="qty-btn" onclick="changeQtyHandler(\'' + ci.itemId + '\',-1)">−</button>' +
                 '<span class="qty-value">' + ci.qty + '</span>' +
                 '<button class="qty-btn" onclick="changeQtyHandler(\'' + ci.itemId + '\',1)">+</button>' +

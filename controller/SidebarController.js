@@ -1,9 +1,8 @@
 //  SIDEBAR CONTROLLER
 // ============================================================
 $(document).ready(function () {
-    // Force light mode
+    // Force light mode — no localStorage used
     $('html').attr('data-theme', 'light');
-    localStorage.removeItem('amg_theme');
 
     // Mobile sidebar toggle
     $('#sidebarToggleBtn').on('click', function () {

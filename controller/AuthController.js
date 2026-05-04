@@ -1,8 +1,11 @@
 //  AUTH CONTROLLER
 // ============================================================
+// NOTE: In-memory variable used instead of sessionStorage/localStorage.
+// All session data is cleared on browser refresh — no persistent storage.
+var _currentUser = null;
+
 function getCurrentUser() {
-    const sess = sessionStorage.getItem('amg_user');
-    return sess ? JSON.parse(sess) : null;
+    return _currentUser;
 }
 
 function showApp(user) {
@@ -21,7 +24,7 @@ function login() {
     if (!u || !p) { showToast('Please enter credentials', 'error'); return; }
     const user = getUserByCredentials(u, p);
     if (user) {
-        sessionStorage.setItem('amg_user', JSON.stringify(user));
+        _currentUser = user;
         $('#loginPage').fadeOut(300, function () { showApp(user); });
     } else {
         showToast('Invalid credentials or account inactive', 'error');
@@ -30,7 +33,7 @@ function login() {
 }
 
 function logout() {
-    sessionStorage.removeItem('amg_user');
+    _currentUser = null;
     clearCart();
     $('#mainApp').hide();
     $('#loginPage').fadeIn(300);
@@ -104,9 +107,10 @@ function fpResetPassword() {
 }
 
 function initAuth() {
-    const sess = sessionStorage.getItem('amg_user');
-    if (sess) { showApp(JSON.parse(sess)); }
-    else { $('#loginPage').show(); $('#mainApp').hide(); showLpView('loginView'); }
+    // No session to restore — always start at login page on refresh
+    $('#loginPage').show();
+    $('#mainApp').hide();
+    showLpView('loginView');
 }
 
 function updateGreeting() {
@@ -119,11 +123,10 @@ function updateGreeting() {
     if (!el) return;
     el.textContent = txt;
     el.classList.remove('animate__bounceInDown');
-    void el.offsetWidth; // force reflow
+    void el.offsetWidth;
     el.classList.add('animate__bounceInDown');
 }
 
-// ── Single $(document).ready() — all auth bindings in one place ──
 $(document).ready(function () {
     updateGreeting();
 
@@ -149,7 +152,6 @@ $(document).ready(function () {
     $('#fpAnswer').on('keypress', function (e) { if (e.key === 'Enter') fpCheckAnswer(); });
     $('#fpResetBtn').on('click', fpResetPassword);
 
-    // Password eye toggle
     $('#lpEyeBtn').on('click', function () {
         const inp  = document.getElementById('loginPassword');
         const icon = $(this).find('i');
