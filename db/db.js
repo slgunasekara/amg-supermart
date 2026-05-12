@@ -32,7 +32,7 @@ var items_db = [
 
 var orders_db = [
     {
-        id: 'ORD-001', customerId: 'C001', customerName: 'Sunil Bandara',
+        id: 'ORD-001', customerId: 'C001', customerName: 'Thushal Maduranga',
         date: '2025-04-10', time: '10:30 AM', status: 'Completed',
         items: [{ itemId: 'I001', name: 'Banana', qty: 2, price: 25.00 }, { itemId: 'I005', name: 'Rice (Samba)', qty: 5, price: 185.00 }],
         subtotal: 975.00, tax: 97.50, discount: 0, total: 1072.50
