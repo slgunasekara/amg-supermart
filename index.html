@@ -216,7 +216,7 @@
     <!-- SIDEBAR -->
     <nav id="sidebar">
         <div class="sidebar-header d-flex align-items-center gap-3">
-            <div class="sidebar-logo-icon">🛒</div>
+            <div><img id="sidebar-logo-img" src="assets/images/ico.png" alt="icon"></div>
             <div>
                 <div class="sidebar-brand">AMG SUPERMART</div>
             </div>
@@ -274,7 +274,7 @@
                 <div class="row g-3 mb-4">
                     <div class="col-xl-3 col-md-6">
                         <div class="stat-card">
-                            <div class="stat-icon">💰</div>
+                            <div class="stat-icon"><i class="bi bi-currency-dollar"></i></div>
                             <div class="stat-value" id="statRevenue">Rs. 0</div>
                             <div class="stat-label">Total Revenue</div>
                             <div class="stat-change up">▲ All-time earnings</div>
@@ -282,7 +282,7 @@
                     </div>
                     <div class="col-xl-3 col-md-6">
                         <div class="stat-card">
-                            <div class="stat-icon">📦</div>
+                            <div class="stat-icon"><i class="bi bi-box-seam-fill"></i></div>
                             <div class="stat-value" id="statOrders">0</div>
                             <div class="stat-label">Total Orders</div>
                             <div class="stat-change up">▲ Completed orders</div>
@@ -290,7 +290,7 @@
                     </div>
                     <div class="col-xl-3 col-md-6">
                         <div class="stat-card">
-                            <div class="stat-icon">👥</div>
+                            <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
                             <div class="stat-value" id="statCustomers">0</div>
                             <div class="stat-label">Customers</div>
                             <div class="stat-change up">▲ Registered</div>
@@ -298,7 +298,7 @@
                     </div>
                     <div class="col-xl-3 col-md-6">
                         <div class="stat-card">
-                            <div class="stat-icon">🛒</div>
+                            <div class="stat-icon"><i class="bi bi-cart-fill"></i></div>
                             <div class="stat-value" id="statItems">0</div>
                             <div class="stat-label">Inventory Items</div>
                             <div class="stat-change down">⚠ <span id="statLowStock">0</span> low stock</div>
@@ -481,12 +481,12 @@
                     <i class="bi bi-bar-chart-line"></i> REPORTS &amp; ANALYTICS
                 </h4>
                 <div class="row g-3 mb-4">
-                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon">💰</div><div class="report-metric-val" id="repRevenue" class="report-metric-val rep-metric-val-lg">-</div><div class="report-metric-label">Total Revenue</div></div></div>
-                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon">📦</div><div class="report-metric-val" id="repOrders">-</div><div class="report-metric-label">Total Orders</div></div></div>
-                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon">📊</div><div class="report-metric-val" id="repAvgOrder" class="report-metric-val rep-metric-val-lg">-</div><div class="report-metric-label">Avg Order Value</div></div></div>
-                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon">⭐</div><div class="report-metric-val" id="repTopCust" class="report-metric-val rep-metric-val-md">-</div><div class="report-metric-label">Top Customer</div></div></div>
-                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon">🏆</div><div class="report-metric-val" id="repTopItem" class="report-metric-val rep-metric-val-md">-</div><div class="report-metric-label">Best Seller</div></div></div>
-                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon">⚠️</div><div class="report-metric-val" id="repLowStock">-</div><div class="report-metric-label">Low Stock</div></div></div>
+                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon"><i class="bi bi-currency-dollar"></i></div><div class="report-metric-val" id="repRevenue" class="report-metric-val rep-metric-val-lg">-</div><div class="report-metric-label">Total Revenue</div></div></div>
+                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon"><i class="bi bi-box-seam-fill"></i></div><div class="report-metric-val" id="repOrders">-</div><div class="report-metric-label">Total Orders</div></div></div>
+                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon"><i class="bi bi-bar-chart-fill"></i></div><div class="report-metric-val" id="repAvgOrder" class="report-metric-val rep-metric-val-lg">-</div><div class="report-metric-label">Avg Order Value</div></div></div>
+                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon"><i class="bi bi-star-fill"></i></div><div class="report-metric-val" id="repTopCust" class="report-metric-val rep-metric-val-md">-</div><div class="report-metric-label">Top Customer</div></div></div>
+                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon"><i class="bi bi-trophy-fill"></i></div><div class="report-metric-val" id="repTopItem" class="report-metric-val rep-metric-val-md">-</div><div class="report-metric-label">Best Seller</div></div></div>
+                    <div class="col-xl-2 col-md-4 col-6"><div class="report-metric"><div class="report-metric-icon"><i class="bi bi-exclamation-triangle-fill"></i></div><div class="report-metric-val" id="repLowStock">-</div><div class="report-metric-label">Low Stock</div></div></div>
                 </div>
                 <div class="row g-3 mb-4">
                     <div class="col-lg-8">
@@ -577,7 +577,7 @@
                     <div class="col-6"><label class="form-label-modern">Item Name *</label><input type="text" id="iName" class="form-control-modern" placeholder="e.g. Banana" oninput="checkDuplicateItemName()"></div>
                     <div class="col-12" id="mergeWarningBox" class="merge-warning-box col-12">
                         <div class="merge-warning-inner">
-                            <span class="merge-warning-icon">⚠️</span>
+                            <span class="merge-warning-icon"><i class="bi bi-exclamation-triangle-fill"></i></span>
                             <div>
                                 <div class="merge-warning-title">Item Already Exists in Stock!</div>
                                 <div id="mergeWarningText" class="merge-warning-text"></div>
@@ -702,7 +702,7 @@
         <!-- Display -->
         <div class="calc-display-wrap">
             <div class="calc-brand">
-                <span class="calc-brand-icon">🧮</span>
+                <span class="calc-brand-icon"><i class="bi bi-calculator-fill"></i></span>
                 <span class="calc-brand-text">AMG CALC</span>
             </div>
             <button class="calc-close-btn" onclick="document.getElementById('calcModal').classList.remove('show')">

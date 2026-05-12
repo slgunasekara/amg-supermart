@@ -409,12 +409,10 @@ body {
     border-bottom: 1px solid var(--border);
     /* Bootstrap d-flex align-items-center gap-3 */
 }
-.sidebar-logo-icon {
-    width: 42px; height: 42px; border-radius: 10px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; flex-shrink: 0;
-    box-shadow: 0 0 20px var(--accent-glow);
+#sidebar-logo-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 20%;
 }
 .sidebar-brand { font-family: 'Orbitron', monospace; font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: 1px; }
 .sidebar-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
@@ -596,6 +594,7 @@ body {
     box-shadow: 0 4px 16px rgba(0,0,0,0.3);
     position: relative; z-index: 1;
     transition: all var(--transition);
+    color: #ffffff;
 }
 .stat-card:hover .stat-icon {
     background: rgba(255, 255, 255, 0.22);
@@ -948,7 +947,7 @@ body {
     position: absolute; top: 18px; left: 20px;
     display: flex; align-items: center; gap: 7px; z-index: 1;
 }
-.calc-brand-icon { font-size: 15px; }
+.calc-brand-icon { font-size: 15px; color: #ffffff; }
 .calc-brand-text {
     font-family: 'Orbitron', monospace; font-size: 9px; font-weight: 700;
     color: rgba(255,255,255,0.55); letter-spacing: 2.5px; text-transform: uppercase;
@@ -1156,6 +1155,7 @@ body {
     box-shadow: 0 4px 14px rgba(0,0,0,0.3);
     position: relative; z-index: 1;
     transition: all var(--transition);
+    color: #ffffff;
 }
 .report-metric:hover .report-metric-icon {
     background: rgba(255, 255, 255, 0.22);
@@ -1440,7 +1440,7 @@ select.form-control-modern {
     border-radius: 12px;
     padding: 12px 16px;
 }
-.merge-warning-icon { font-size: 22px; }
+.merge-warning-icon { font-size: 22px; color: #ffffff; }
 .merge-warning-title {
     font-weight: 700;
     color: #b45309;
